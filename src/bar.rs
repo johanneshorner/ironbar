@@ -10,7 +10,7 @@ use gtk::{Application, ApplicationWindow, IconTheme, Orientation, Window, Window
 use gtk_layer_shell::LayerShell;
 use std::rc::Rc;
 use std::time::Duration;
-use tracing::{debug, info};
+use tracing::{debug, error, info};
 
 #[derive(Debug, Clone)]
 enum Inner {
@@ -387,7 +387,10 @@ fn add_modules(
     let module_factory = BarModuleFactory::new(ironbar.clone(), popup.clone()).into();
 
     for config in modules {
-        config.create(&module_factory, content, info)?;
+        let module_name = config.name();
+        if let Err(e) = config.create(&module_factory, content, info) {
+            error!("creating module `{module_name}` failed: {e}");
+        }
     }
 
     Ok(())

@@ -130,6 +130,29 @@ impl ModuleConfig {
             Self::Workspaces(module) => create!(module),
         }
     }
+
+    pub fn name(&self) -> &'static str {
+        use ModuleConfig::*;
+        match self {
+            Cairo(_) => "cairo",
+            Clipboard(_) => "clipboard",
+            Clock(_) => "clock",
+            Custom(_) => "custom",
+            Focused(_) => "focused",
+            Label(_) => "label",
+            Launcher(_) => "launcher",
+            Music(_) => "music",
+            NetworkManager(_) => "networkmanager",
+            Notifications(_) => "notifications",
+            Script(_) => "script",
+            SysInfo(_) => "sysinfo",
+            SwayMode(_) => "swaymode",
+            Tray(_) => "tray",
+            Upower(_) => "upower",
+            Volume(_) => "volume",
+            Workspaces(_) => "workspaces",
+        }
+    }
 }
 
 #[derive(Debug, Clone)]
